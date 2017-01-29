@@ -21,4 +21,9 @@ class TestDataStructures extends FunSuite with Matchers{
     // となる 
     assert(List.x == 3)
   }
+
+  test("3.02: tail"){
+    List.tail(List(1,2,3)) shouldBe List(2,3)
+    List.tail(List(1,2,3,4,5)) shouldBe List(2,3,4,5)
+  }
 }
