@@ -38,4 +38,14 @@ class TestGettingStarted extends FunSuite {
     assert(adder(3, 5) == 8)
     assert(adder(-3, 6) == 3)
   }
+
+  test("2.05: compose"){
+    val mul2: Int => Int = _ * 2
+    val plus3: Int => Int = _ + 3
+    val mul2plus3 = PolymorphicFunctions.compose(plus3, mul2)
+    val plus3mul2 = PolymorphicFunctions.compose(mul2, plus3)
+    
+    assert(mul2plus3(3) == 9)
+    assert(plus3mul2(3) == 12)
+  }
 }
