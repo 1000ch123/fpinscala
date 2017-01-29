@@ -29,4 +29,13 @@ class TestGettingStarted extends FunSuite {
     assert((Module addThree 3) == 6)
     assert((Module addThree 6) == 9)
   }
+
+  test("2.04: uncurrying"){
+    def curriedAdder: Int => Int => Int = x => y => x+y
+    val adder = PolymorphicFunctions.uncurry(curriedAdder)
+    
+    assert(adder(1, 3) == 4)
+    assert(adder(3, 5) == 8)
+    assert(adder(-3, 6) == 3)
+  }
 }
