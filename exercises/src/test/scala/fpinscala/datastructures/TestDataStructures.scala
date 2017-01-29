@@ -1,8 +1,17 @@
-import org.scalatest.FunSuite
+import org.scalatest._
 import fpinscala.datastructures.List
 
 
-class TestDataStructures extends FunSuite {
+class TestDataStructures extends FunSuite with Matchers{
+  test("sample: array assetion"){
+    // ref: http://www.scalatest.org/user_guide/using_matchers
+    Array(1, 2, 3) should equal (Array(1, 2, 3))
+    Array(1, 2, 3) should === (Array(1, 2, 3))
+    Array(1, 2, 3) should be (Array(1, 2, 3))
+    Array(1, 2, 3) shouldEqual Array(1, 2, 3)
+    Array(1, 2, 3) shouldBe Array(1, 2, 3) // fastest to compile, no parentheses required
+  }
+  
   test("3.01: pattern match"){
     //   Array(1,2,3,4,5)
     // が
