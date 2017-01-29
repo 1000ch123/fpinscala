@@ -78,7 +78,11 @@ object List { // `List` companion object. Contains functions for creating and wo
     if (f(head(l))) dropWhile2(tail(l), f)
     else l
 
-  def init[A](l: List[A]): List[A] = ???
+  def init[A](l: List[A]): List[A] = l match{
+    case Nil => Nil
+    case Cons(x, Nil) => Nil
+    case Cons(x, xs) => Cons(x, init(xs))
+  }
 
   def length[A](l: List[A]): Int = ???
 

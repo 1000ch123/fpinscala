@@ -59,4 +59,15 @@ class TestDataStructures extends FunSuite with Matchers{
     List.dropWhile2(List(1, 3, 5, 2, 4, 6), isOdd) shouldBe List(2, 4, 6)
     List.dropWhile2(List(10, 20, 30, 5, 6, 7), overFive) shouldBe List(5, 6, 7)
   }
+
+  test("3.06: init"){
+    /**
+      len(l) = n のとき
+      tail(l) は Cons(x,xs) でxs返すだけ.1回の処理でok
+      init(l) は Cons(x,Nil) にぶつかるまでn回checkが必要
+    */
+    List.init(List(1,2,3,4)) shouldBe List(1,2,3)
+    List.init(List(3)) shouldBe List()
+    List.init(List()) shouldBe List()
+  }
 }
