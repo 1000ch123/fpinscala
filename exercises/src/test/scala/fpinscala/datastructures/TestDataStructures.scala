@@ -25,5 +25,11 @@ class TestDataStructures extends FunSuite with Matchers{
   test("3.02: tail"){
     List.tail(List(1,2,3)) shouldBe List(2,3)
     List.tail(List(1,2,3,4,5)) shouldBe List(2,3,4,5)
+    List.tail(List()) shouldBe List()
+  }
+
+  test("3.03: setHead"){
+    List.setHead(List(1,2,3), 5) shouldBe List(5,2,3)
+    List.setHead(List(), 5) shouldBe List()
   }
 }
