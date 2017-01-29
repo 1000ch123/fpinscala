@@ -32,4 +32,11 @@ class TestDataStructures extends FunSuite with Matchers{
     List.setHead(List(1,2,3), 5) shouldBe List(5,2,3)
     List.setHead(List(), 5) shouldBe List()
   }
+
+  test("3.04: drop"){
+    List.drop(List(1,2,3), 2) shouldBe List(3)
+    List.drop(List(1,2,3), 0) shouldBe List(1,2,3)
+    List.drop(List(1,2,3), 3) shouldBe List()
+    List.drop(List(1,2,3), 5) shouldBe List()
+  }
 }
