@@ -18,4 +18,15 @@ class TestGettingStarted extends FunSuite {
   test("2.02: isSorted") {
     assert(PolymorphicFunctions.isSorted(Array(1,2,3,4), (x: Int, y:Int) => x < y))
   }
+
+  test("2.03: currying"){
+    object Module {
+      def adder(x: Int, y:Int): Int = x + y
+      val addThree = PolymorphicFunctions.curry(adder)(3)
+    }
+    
+    assert((Module addThree 1) == 4)
+    assert((Module addThree 3) == 6)
+    assert((Module addThree 6) == 9)
+  }
 }
