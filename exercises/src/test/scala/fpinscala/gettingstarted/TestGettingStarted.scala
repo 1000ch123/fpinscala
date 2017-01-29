@@ -1,3 +1,5 @@
+package test.fpinscala.gettingstarted
+
 import org.scalatest.FunSuite
 import fpinscala.gettingstarted.MyModule
 import fpinscala.gettingstarted.PolymorphicFunctions

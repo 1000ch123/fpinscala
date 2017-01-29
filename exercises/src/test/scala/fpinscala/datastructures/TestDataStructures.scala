@@ -1,3 +1,5 @@
+package test.fpinscala.datastructures
+
 import org.scalatest._
 import fpinscala.datastructures.List
 
