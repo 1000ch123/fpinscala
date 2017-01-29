@@ -78,6 +78,11 @@ object List { // `List` companion object. Contains functions for creating and wo
     if (f(head(l))) dropWhile2(tail(l), f)
     else l
 
+  def dropWhile3[A](l: List[A])(f: A => Boolean): List[A] = 
+    // dropWhile.curried  だとダメっぽい...why?
+    // 型変数残ったままではcurriedできないのかも？
+    dropWhile(l, f)
+
   def init[A](l: List[A]): List[A] = l match{
     case Nil => Nil
     case Cons(x, Nil) => Nil
