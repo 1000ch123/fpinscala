@@ -34,4 +34,11 @@ class TestErrorHandling extends FunSuite with Matchers{
     assert(None.orElse(Some(2)) == Some(2))
     assert(None.orElse(None) == None)
   }
+
+  test("4.01: higher order functions: filter"){
+    val f: Int => Boolean = _ % 2 == 0
+    assert(Some(1).filter(f) == None)
+    assert(Some(2).filter(f) == Some(2))   
+    assert((None: Option[Int]).filter(f) == None)
+  }
 }
