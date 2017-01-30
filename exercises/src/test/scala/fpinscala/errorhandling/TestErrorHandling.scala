@@ -42,3 +42,37 @@ class TestErrorHandling extends FunSuite with Matchers{
     assert((None: Option[Int]).filter(f) == None)
   }
 }
+
+class TestErrorHandlingSpec extends FunSpec with Matchers{
+  describe("4.01"){
+    describe("Option.map"){
+      describe("with Some value"){
+        it("should map it's value with given function"){
+          assert(Some(1).map(_ * 5) == Some(5))        
+        }
+      }
+      describe("with None value"){
+        it("should return None"){
+          assert((None: Option[Int]).map(_ * 5) == None)
+        }
+      }
+    }
+    describe("Option.flatMap"){
+      val f: Int => Option[Int] =
+        x => if (x % 2 == 0) Some(x) else None
+      describe("with Some value"){
+        it("should map value with given function and faltten it."){
+          assert(Some(2).flatMap(f) == Some(2))
+        }
+        it("should return None if mapped value is None"){
+          assert(Some(1).flatMap(f) == None)
+        }
+      }
+      describe("with None value"){
+        it("should return None"){
+          assert((None: Option[Int]).flatMap(f) == None)
+        }
+      }
+    }
+  }
+}
