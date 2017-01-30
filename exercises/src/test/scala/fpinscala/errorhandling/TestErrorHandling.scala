@@ -27,4 +27,11 @@ class TestErrorHandling extends FunSuite with Matchers{
     assert(Some(2).flatMap(f) == Some(2))
     assert((None: Option[Int]).flatMap(f) == None)
   }
+
+  test("4.01: higher order functions: orElse"){
+    assert(Some(1).orElse(Some(2)) == Some(1))
+    assert(Some(1).orElse(None) == Some(1))
+    assert(None.orElse(Some(2)) == Some(2))
+    assert(None.orElse(None) == None)
+  }
 }
