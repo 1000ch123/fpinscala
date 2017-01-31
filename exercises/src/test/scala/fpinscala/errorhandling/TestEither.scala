@@ -10,4 +10,9 @@ class TestEither extends FunSuite with Matchers{
     assert(Right(1).get == 1)
     assert(Left("error").get == "error")
   }
+
+  test("4.06: map"){
+    assert(Right(1).map(_ * 2) == Right(2))
+    assert((Left("error"): Either[String,Int]).map(_ * 2) == Left("error"))
+  } 
 }
