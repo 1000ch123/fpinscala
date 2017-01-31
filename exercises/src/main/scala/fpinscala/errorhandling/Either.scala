@@ -15,7 +15,10 @@ sealed trait Either[+E,+A] {
  }
   //this.map(f).map(_.get) だと either.getを呼ぶので駄目っぽい..うーん
 
- def orElse[EE >: E, B >: A](b: => Either[EE, B]): Either[EE, B] = ???
+ def orElse[EE >: E, B >: A](b: => Either[EE, B]): Either[EE, B] = this match{
+   case Left(e) => b
+   case Right(a) => Right(a)
+ }
 
  def map2[EE >: E, B, C](b: Either[EE, B])(f: (A, B) => C): Either[EE, C] = ???
 }

@@ -22,4 +22,11 @@ class TestEither extends FunSuite with Matchers{
     assert(Right(-1).flatMap(f) == Left("negative value"))
     assert((Left("error"): Either[String,Int]).flatMap(f) == Left("error"))
   }
+
+  test("4.06: orElse"){
+    assert(Right(1).orElse(Right(2)) == Right(1))
+    assert(Right(1).orElse(Left("error2")) == Right(1))
+    assert(Left("error1").orElse(Right(2)) == Right(2))
+    assert(Left("error1").orElse(Left("error2")) == Left("error2"))
+  }
 }
