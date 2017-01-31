@@ -44,7 +44,19 @@ object Option {
   def mean(xs: Seq[Double]): Option[Double] =
     if (xs.isEmpty) None
     else Some(xs.sum / xs.length)
-  def variance(xs: Seq[Double]): Option[Double] = ???
+
+  def variance(xs: Seq[Double]): Option[Double] = {
+    // xs の1つの要素を変換する関数
+    def convert(m: Double): (Double => Double) =
+      x => math.pow(x - m, 2)
+
+    // xs を mean で convertする
+    // xs を closureで使ってるから なんだかなぁって感じはある
+    def parts: (Double => Seq[Double]) =
+      m => xs.map(convert(m))
+
+    mean(xs).map(parts).flatMap(mean)
+  }
 
   def map2[A,B,C](a: Option[A], b: Option[B])(f: (A, B) => C): Option[C] = ???
 
