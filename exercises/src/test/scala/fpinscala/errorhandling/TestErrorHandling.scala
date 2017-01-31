@@ -59,6 +59,13 @@ class TestErrorHandling extends FunSuite with Matchers{
     assert((Option sequence List(Some(1), Some(2), Some(3))) == Some(List(1,2,3)))
     assert((Option sequence List(Some(1), Some(2), None)) == None)
   }
+
+  test("4.05: traverse"){
+    def f(x: Int): Option[Int] = if (x >= 0) Some(x) else None
+    assert(Option.traverse(List(1,2,3))(f) == Some(List(1,2,3)))
+    assert(Option.traverse(List(1,2,-3))(f) == None)
+    assert(Option.traverse(List())(f) ==  Some(List()))
+  }
 }
 
 class TestErrorHandlingSpec extends FunSpec with Matchers{

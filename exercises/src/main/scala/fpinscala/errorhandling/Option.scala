@@ -89,5 +89,11 @@ object Option {
     
   }
 
-  def traverse[A, B](a: List[A])(f: A => Option[B]): Option[List[B]] = ???
+  def traverse[A, B](a: List[A])(f: A => Option[B]): Option[List[B]] = 
+    /**
+    sequenceの応用
+    入力が List[A] となるので 変換処理 A=>option[B] を挟んだ状態でmap2すればok
+    しかしさすがにこれは読みづらいなぁ
+    */
+    a.foldRight[Option[List[B]]](Some(Nil))((x,xs) => map2(f(x), xs)(_ :: _))
 }
