@@ -29,4 +29,12 @@ class TestEither extends FunSuite with Matchers{
     assert(Left("error1").orElse(Right(2)) == Right(2))
     assert(Left("error1").orElse(Left("error2")) == Left("error2"))
   }
+
+   test("4.06: map2"){
+    def f(x: Int, y:Int): Int = x + y
+    assert(Right(1).map2(Right(2))(f) == Right(3))
+    assert(Right(1).map2(Left("error2"))(f) == Left("error2"))
+    assert(Left("error1").map2(Right(2))(f) == Left("error1"))
+    assert(Left("error1").map2(Left("error2"))(f) == Left("error1"))
+  }
 }
