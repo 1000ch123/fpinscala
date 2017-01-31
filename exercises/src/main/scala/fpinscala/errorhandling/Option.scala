@@ -68,7 +68,26 @@ object Option {
     a.flatMap( x => b.map( y => f(x, y)))
     //b.map(a.map(f.curried).getOrElse(x => x))  //getOrElseで B => C つくれないから駄目か
 
-  def sequence[A](a: List[Option[A]]): Option[List[A]] = ???
+  def sequence[A](a: List[Option[A]]): Option[List[A]] = {
+    /**
+      foldRightするときに，型annotationが必要になるらしい...
+      そうしないと
+      > test-only test.fpinscala.errorhandling.TestErrorHandling
+        [error]  found   : fpinscala.errorhandling.Option[List[A]]
+        [error]  required: fpinscala.errorhandling.Some[List[A]]
+        [error]     a.foldRight(Some(Nil: List[A]))(map2(_,_)(cons))
+      とひたすら怒られていた
+      こんなん知らんわ...
+      type annotation で怒られた場合，個別引数でannotaionするのではなく []つかってあげるとscalaコンパイラがよしなにしてくれるのかなぁ
+     */
+    def cons(x: A, xs: List[A]): List[A] = x :: xs
+    def optionCons(x: Option[A], xs: Option[List[A]]): Option[List[A]] = map2(x,xs)(cons)
+
+    //a.foldRight(Some(Nil: List[A]))(optionCons)
+    //a.foldRight(Some(Nil: List[A]))(map2(_,_)(cons))
+    a.foldRight[Option[List[A]]](Some(Nil))(map2(_,_)(_ :: _))
+    
+  }
 
   def traverse[A, B](a: List[A])(f: A => Option[B]): Option[List[B]] = ???
 }

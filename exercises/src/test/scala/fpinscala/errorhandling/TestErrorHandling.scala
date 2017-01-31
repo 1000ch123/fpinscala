@@ -54,6 +54,11 @@ class TestErrorHandling extends FunSuite with Matchers{
     assert(Option.map2(None: Option[Int], Some(2))(_ + _) == None)
     assert(Option.map2(None: Option[Int], None)(_ + _) == None)
   }
+
+  test("4.04: sequence"){
+    assert((Option sequence List(Some(1), Some(2), Some(3))) == Some(List(1,2,3)))
+    assert((Option sequence List(Some(1), Some(2), None)) == None)
+  }
 }
 
 class TestErrorHandlingSpec extends FunSpec with Matchers{
