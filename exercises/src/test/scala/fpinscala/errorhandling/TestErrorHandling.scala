@@ -41,6 +41,12 @@ class TestErrorHandling extends FunSuite with Matchers{
     assert(Some(2).filter(f) == Some(2))   
     assert((None: Option[Int]).filter(f) == None)
   }
+
+  test("4.02: variance"){
+    assert(Option.variance(Seq[Double](1,2,3,4,5)) == Some(2))
+    assert(Option.variance(Seq[Double](0)) == Some(0))
+    assert(Option.variance(Seq[Double]()) == None)
+  }
 }
 
 class TestErrorHandlingSpec extends FunSpec with Matchers{
