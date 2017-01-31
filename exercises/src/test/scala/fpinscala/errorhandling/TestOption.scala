@@ -4,7 +4,7 @@ import org.scalatest._
 import fpinscala.errorhandling._
 
 
-class TestErrorHandling extends FunSuite with Matchers{
+class TestOption extends FunSuite with Matchers{
   test("basic option usage"){
     assert(Some(1).get == 1)
     assert((None: Option[Int]) == None)
