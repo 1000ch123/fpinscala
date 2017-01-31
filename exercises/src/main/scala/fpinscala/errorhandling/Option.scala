@@ -58,7 +58,11 @@ object Option {
     mean(xs).map(parts).flatMap(mean)
   }
 
-  def map2[A,B,C](a: Option[A], b: Option[B])(f: (A, B) => C): Option[C] = ???
+  def lift[A,B](f: A => B): Option[A] => Option[B] = _ map f
+
+  def map2[A,B,C](a: Option[A], b: Option[B])(f: (A, B) => C): Option[C] = 
+    a.flatMap( x => b.map( y => f(x, y)))
+    //b.map(a.map(f.curried).getOrElse(x => x))  //getOrElseで B => C つくれないから駄目か
 
   def sequence[A](a: List[Option[A]]): Option[List[A]] = ???
 
