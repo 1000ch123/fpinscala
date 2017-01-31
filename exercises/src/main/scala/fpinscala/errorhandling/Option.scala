@@ -60,6 +60,10 @@ object Option {
 
   def lift[A,B](f: A => B): Option[A] => Option[B] = _ map f
 
+  def lift2[A,B,C](f: (A, B) => C): (Option[A], Option[B]) => Option[C] = 
+    (a,b) => a flatMap (a => b map (b => f(a,b)))
+    // _ flatmap (_ map f.curried)  // Option[B] * Option[B=>C] ができないのでダメ => appricative functorだ
+
   def map2[A,B,C](a: Option[A], b: Option[B])(f: (A, B) => C): Option[C] = 
     a.flatMap( x => b.map( y => f(x, y)))
     //b.map(a.map(f.curried).getOrElse(x => x))  //getOrElseで B => C つくれないから駄目か
