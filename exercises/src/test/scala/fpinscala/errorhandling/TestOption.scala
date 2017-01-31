@@ -4,7 +4,7 @@ import org.scalatest._
 import fpinscala.errorhandling._
 
 
-class TestErrorHandling extends FunSuite with Matchers{
+class TestOption extends FunSuite with Matchers{
   test("basic option usage"){
     assert(Some(1).get == 1)
     assert((None: Option[Int]) == None)
@@ -46,6 +46,25 @@ class TestErrorHandling extends FunSuite with Matchers{
     assert(Option.variance(Seq[Double](1,2,3,4,5)) == Some(2))
     assert(Option.variance(Seq[Double](0)) == Some(0))
     assert(Option.variance(Seq[Double]()) == None)
+  }
+
+  test("4.03: map2"){
+    assert(Option.map2(Some(1), Some(2))(_ + _) == Some(3))
+    assert(Option.map2(Some(1), None)(_ + _) == None)
+    assert(Option.map2(None: Option[Int], Some(2))(_ + _) == None)
+    assert(Option.map2(None: Option[Int], None)(_ + _) == None)
+  }
+
+  test("4.04: sequence"){
+    assert((Option sequence List(Some(1), Some(2), Some(3))) == Some(List(1,2,3)))
+    assert((Option sequence List(Some(1), Some(2), None)) == None)
+  }
+
+  test("4.05: traverse"){
+    def f(x: Int): Option[Int] = if (x >= 0) Some(x) else None
+    assert(Option.traverse(List(1,2,3))(f) == Some(List(1,2,3)))
+    assert(Option.traverse(List(1,2,-3))(f) == None)
+    assert(Option.traverse(List())(f) ==  Some(List()))
   }
 }
 

@@ -58,9 +58,42 @@ object Option {
     mean(xs).map(parts).flatMap(mean)
   }
 
-  def map2[A,B,C](a: Option[A], b: Option[B])(f: (A, B) => C): Option[C] = ???
+  def lift[A,B](f: A => B): Option[A] => Option[B] = _ map f
 
-  def sequence[A](a: List[Option[A]]): Option[List[A]] = ???
+  def lift2[A,B,C](f: (A, B) => C): (Option[A], Option[B]) => Option[C] = 
+    (a,b) => a flatMap (a => b map (b => f(a,b)))
+    // _ flatmap (_ map f.curried)  // Option[B] * Option[B=>C] ができないのでダメ => appricative functorだ
 
-  def traverse[A, B](a: List[A])(f: A => Option[B]): Option[List[B]] = ???
+  def map2[A,B,C](a: Option[A], b: Option[B])(f: (A, B) => C): Option[C] = 
+    a.flatMap( x => b.map( y => f(x, y)))
+    //b.map(a.map(f.curried).getOrElse(x => x))  //getOrElseで B => C つくれないから駄目か
+
+  def sequence[A](a: List[Option[A]]): Option[List[A]] = {
+    /**
+      foldRightするときに，型annotationが必要になるらしい...
+      そうしないと
+      > test-only test.fpinscala.errorhandling.TestErrorHandling
+        [error]  found   : fpinscala.errorhandling.Option[List[A]]
+        [error]  required: fpinscala.errorhandling.Some[List[A]]
+        [error]     a.foldRight(Some(Nil: List[A]))(map2(_,_)(cons))
+      とひたすら怒られていた
+      こんなん知らんわ...
+      type annotation で怒られた場合，個別引数でannotaionするのではなく []つかってあげるとscalaコンパイラがよしなにしてくれるのかなぁ
+     */
+    def cons(x: A, xs: List[A]): List[A] = x :: xs
+    def optionCons(x: Option[A], xs: Option[List[A]]): Option[List[A]] = map2(x,xs)(cons)
+
+    //a.foldRight(Some(Nil: List[A]))(optionCons)
+    //a.foldRight(Some(Nil: List[A]))(map2(_,_)(cons))
+    a.foldRight[Option[List[A]]](Some(Nil))(map2(_,_)(_ :: _))
+    
+  }
+
+  def traverse[A, B](a: List[A])(f: A => Option[B]): Option[List[B]] = 
+    /**
+    sequenceの応用
+    入力が List[A] となるので 変換処理 A=>option[B] を挟んだ状態でmap2すればok
+    しかしさすがにこれは読みづらいなぁ
+    */
+    a.foldRight[Option[List[B]]](Some(Nil))((x,xs) => map2(f(x), xs)(_ :: _))
 }
