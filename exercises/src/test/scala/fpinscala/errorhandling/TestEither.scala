@@ -37,4 +37,9 @@ class TestEither extends FunSuite with Matchers{
     assert(Left("error1").map2(Right(2))(f) == Left("error1"))
     assert(Left("error1").map2(Left("error2"))(f) == Left("error1"))
   }
+
+  test("4.07: sequence"){
+    assert((Either sequence List(Right(1), Right(2), Right(3))) == Right(List(1,2,3)))
+    assert((Either sequence List(Right(1), Right(2), Left("error"))) == Left("error"))
+  }
 }
