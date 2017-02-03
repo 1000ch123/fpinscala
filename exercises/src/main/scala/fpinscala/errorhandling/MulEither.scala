@@ -22,17 +22,12 @@ sealed trait Either[+E,+A] {
 
  // ex4.08
  // map2にて returnする EitherのLeftをちょいと変えた
- def map2[EE >: E, B, C](b: Either[EE, B])(f: (A, B) => C): Either[List[EE], C] = this match {
-   case Left(e1) => b match{
-     case Left(e2) => Left(List(e1,e2)) 
-     case Right(a2) => Left(List(e1))
-   }
-   case Right(a1) => b match{
-     case Left(e2) => Left(List(e2)) 
-     case Right(a2) => Right(f(a1, a2))
-   }
+ def map2[EE >: E, B, C](b: Either[EE, B])(f: (A, B) => C): Either[List[EE], C] = (this, b) match {
+   case (Left(e1), Left(e2)) => Left(List(e1,e2)) 
+   case (Left(e1), _) => Left(List(e1))
+   case (_, Left(e2)) => Left(List(e2)) 
+   case (Right(a1), Right(a2)) => Right(f(a1, a2))
  }
-
 }
 
 case class Left[+E](get: E) extends Either[E,Nothing]
