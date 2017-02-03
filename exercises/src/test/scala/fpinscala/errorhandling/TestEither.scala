@@ -42,4 +42,11 @@ class TestEither extends FunSuite with Matchers{
     assert((Either sequence List(Right(1), Right(2), Right(3))) == Right(List(1,2,3)))
     assert((Either sequence List(Right(1), Right(2), Left("error"))) == Left("error"))
   }
+
+  test("4.07: traverse"){
+    def f(x: Int): Either[String, Int] = if (x >= 0) Right(x) else Left("error")
+    assert(Either.traverse(List(1,2,3))(f) == Right(List(1,2,3)))
+    assert(Either.traverse(List(1,2,-3))(f) == Left("error"))
+    assert(Either.traverse(List())(f) ==  Right(List()))
+  }
 }
