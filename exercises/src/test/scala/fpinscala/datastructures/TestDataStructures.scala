@@ -90,7 +90,13 @@ class TestDataStructures extends FunSuite with Matchers{
     List.length(List()) shouldBe 0
   }
   
-  test("3.010: foldLeft"){
+  test("3.10: foldLeft"){
     List.foldLeft(List(1,2,3,4), 0)(_ + _) shouldBe 10
+  }
+
+  test("3.11: reverse"){
+    List.reverse(List(1,2,3,4)) shouldBe List(4,3,2,1)
+    List.reverse(List()) shouldBe List()
+
   }
 }
