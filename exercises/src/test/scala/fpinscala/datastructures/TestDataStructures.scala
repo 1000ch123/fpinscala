@@ -89,4 +89,8 @@ class TestDataStructures extends FunSuite with Matchers{
     List.length(List(3)) shouldBe 1
     List.length(List()) shouldBe 0
   }
+  
+  test("3.010: foldLeft"){
+    List.foldLeft(List(1,2,3,4), 0)(_ + _) shouldBe 10
+  }
 }
