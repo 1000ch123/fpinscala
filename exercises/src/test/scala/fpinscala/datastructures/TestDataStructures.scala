@@ -94,5 +94,12 @@ class TestDataStructures extends FunSuite with Matchers{
     List.doubleToString(List(1,2,3,4)) shouldBe List("1.0", "2.0", "3.0", "4.0")
     List.doubleToString(List(3)) shouldBe List("3.0")
     List.doubleToString(List()) shouldBe List()
-  }  
+  }
+
+  test("3.18: map"){
+    def succ: Int => Int = _ + 1
+    List.map(List(1,2,3,4))(succ) shouldBe List(2,3,4,5)
+    List.map(List(3))(succ) shouldBe List(4)
+    List.map(List())(succ) shouldBe List()
+  }
 }

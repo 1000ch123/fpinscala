@@ -99,6 +99,6 @@ object List { // `List` companion object. Contains functions for creating and wo
   def doubleToString(l: List[Double]): List[String] =
     foldRight(l, Nil: List[String])((x,y) => Cons(x.toString, y))
 
-
-  def map[A,B](l: List[A])(f: A => B): List[B] = ???
+  def map[A,B](l: List[A])(f: A => B): List[B] = 
+    foldRight(l, Nil: List[B])((a,bs) => Cons(f(a), bs))
 }
