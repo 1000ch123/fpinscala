@@ -136,4 +136,11 @@ class TestDataStructures extends FunSuite with Matchers{
     List.merge(List(1))(List(10,20,30,40)) shouldBe List(11)
     List.merge(List())(List(10,20,30,40)) shouldBe List()
   }
+
+  test("3.23: zipWith"){
+    def add: (Int, Int) => Int = _ + _
+    List.zipWith(add)(List(1,2,3,4))(List(10,20,30,40)) shouldBe List(11,22,33,44)
+    List.zipWith(add)(List(1))(List(10,20,30,40)) shouldBe List(11)
+    List.zipWith(add)(List())(List(10,20,30,40)) shouldBe List()
+  }
 }
