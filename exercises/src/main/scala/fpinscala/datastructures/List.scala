@@ -96,5 +96,9 @@ object List { // `List` companion object. Contains functions for creating and wo
   def succ(l: List[Int]): List[Int] =
     foldRight[Int, List[Int]](l, Nil)((x,y) => Cons(x + 1, y))
 
+  def doubleToString(l: List[Double]): List[String] =
+    foldRight(l, Nil: List[String])((x,y) => Cons(x.toString, y))
+
+
   def map[A,B](l: List[A])(f: A => B): List[B] = ???
 }
