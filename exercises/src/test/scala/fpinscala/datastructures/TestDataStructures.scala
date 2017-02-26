@@ -102,4 +102,11 @@ class TestDataStructures extends FunSuite with Matchers{
     List.map(List(3))(succ) shouldBe List(4)
     List.map(List())(succ) shouldBe List()
   }
+
+  test("3.19: filter"){
+    def isEven: Int => Boolean = _ % 2 == 0
+    List.filter(List(1,2,3,4))(isEven) shouldBe List(1,3)
+    List.filter(List(3))(isEven) shouldBe List(3)
+    List.filter(List())(isEven) shouldBe List()
+  }
 }
