@@ -83,4 +83,10 @@ class TestDataStructures extends FunSuite with Matchers{
     List.init(List(3)) shouldBe List()
     List.init(List()) shouldBe List()
   }
+
+  test("3.16: succ list"){
+    List.succ(List(1,2,3,4)) shouldBe List(2,3,4,5)
+    List.succ(List(3)) shouldBe List(4)
+    List.succ(List()) shouldBe List()
+  }  
 }
