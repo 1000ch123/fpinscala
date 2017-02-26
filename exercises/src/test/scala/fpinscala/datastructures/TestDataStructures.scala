@@ -130,4 +130,10 @@ class TestDataStructures extends FunSuite with Matchers{
     List.filter2(List(3))(isEven) shouldBe List(3)
     List.filter2(List())(isEven) shouldBe List()
   }
+
+  test("3.22: merge"){
+    List.merge(List(1,2,3,4))(List(10,20,30,40)) shouldBe List(11,22,33,44)
+    List.merge(List(1))(List(10,20,30,40)) shouldBe List(11)
+    List.merge(List())(List(10,20,30,40)) shouldBe List()
+  }
 }
