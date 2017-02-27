@@ -30,4 +30,11 @@ class TestTree extends FreeSpec with Matchers{
       Tree.depth(Branch(Branch(Leaf(1), Leaf(2)), Leaf(3)), 4) shouldBe 0
     }
   }
+
+  "3.28" - {
+    "map" in {
+      Tree.map(Leaf(1))(_+1) shouldBe Leaf(2)
+      Tree.map(Branch(Branch(Leaf(1), Leaf(2)), Leaf(3)))(_+1) shouldBe Branch(Branch(Leaf(2), Leaf(3)), Leaf(4))
+    }
+  }
 }
