@@ -37,4 +37,16 @@ class TestTree extends FreeSpec with Matchers{
       Tree.map(Branch(Branch(Leaf(1), Leaf(2)), Leaf(3)))(_+1) shouldBe Branch(Branch(Leaf(2), Leaf(3)), Leaf(4))
     }
   }
+
+  "3.29" - {
+    "fold" - {
+      "sum" in {
+        Tree.fold(Leaf(1))(0)(_ + _) shouldBe 1
+        Tree.fold(Branch(Leaf(1), Leaf(2)))(0)(_ + _) shouldBe 3
+        Tree.fold(Branch(Branch(Leaf(1), Leaf(2)), Leaf(3)))(0)(_ + _) shouldBe 6
+      }
+    }
+  }
+
+  
 }
