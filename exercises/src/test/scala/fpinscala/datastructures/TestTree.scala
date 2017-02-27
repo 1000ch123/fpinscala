@@ -12,4 +12,12 @@ class TestTree extends FreeSpec with Matchers{
       Tree.size(Branch(Branch(Leaf(1), Leaf(2)), Leaf(3))) shouldBe 3    
     }
   }
+
+  "3.26" - {
+    "maximum" in {
+      Tree.maximum(Leaf(1)) shouldBe 1
+      Tree.maximum(Branch(Branch(Leaf(1), Leaf(2)), Leaf(3))) shouldBe 3
+      Tree.maximum(Branch(Branch(Leaf(3), Leaf(2)), Leaf(1))) shouldBe 3
+    }
+  }
 }
