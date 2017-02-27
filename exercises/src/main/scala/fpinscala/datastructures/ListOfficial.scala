@@ -1,7 +1,8 @@
 package fpinscala.datastructures2
 
 object List {
-  def hasSubsequence[A](sup: List[A])(sub: List[A]): Boolean = ???
+  def hasSubsequence[A](sup: List[A])(sub: List[A]): Boolean =
+    sup.tails.exists(startsWith(_, sub))
 
   def startsWith[A](as: List[A], ts: List[A]): Boolean = (as, ts) match {
     case (_, Nil) => true
