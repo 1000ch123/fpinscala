@@ -20,4 +20,14 @@ class TestTree extends FreeSpec with Matchers{
       Tree.maximum(Branch(Branch(Leaf(3), Leaf(2)), Leaf(1))) shouldBe 3
     }
   }
+
+  "3.27" - {
+    "depth" in {
+      Tree.depth(Leaf(1), 1) shouldBe 1
+      Tree.depth(Leaf(1), 2) shouldBe 0
+      Tree.depth(Branch(Branch(Leaf(1), Leaf(2)), Leaf(3)), 1) shouldBe 3
+      Tree.depth(Branch(Branch(Leaf(1), Leaf(2)), Leaf(3)), 3) shouldBe 2
+      Tree.depth(Branch(Branch(Leaf(1), Leaf(2)), Leaf(3)), 4) shouldBe 0
+    }
+  }
 }
