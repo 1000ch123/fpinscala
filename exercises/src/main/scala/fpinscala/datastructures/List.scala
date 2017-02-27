@@ -93,5 +93,39 @@ object List { // `List` companion object. Contains functions for creating and wo
 
   def foldLeft[A,B](l: List[A], z: B)(f: (B, A) => B): B = ???
 
-  def map[A,B](l: List[A])(f: A => B): List[B] = ???
+  def succ(l: List[Int]): List[Int] =
+    foldRight[Int, List[Int]](l, Nil)((x,y) => Cons(x + 1, y))
+
+  def doubleToString(l: List[Double]): List[String] =
+    foldRight(l, Nil: List[String])((x,y) => Cons(x.toString, y))
+
+  def map[A,B](l: List[A])(f: A => B): List[B] = 
+    foldRight(l, Nil: List[B])((a,bs) => Cons(f(a), bs))
+
+  def filter[A](l: List[A])(f: A => Boolean): List[A] = 
+    foldRight(l, Nil: List[A])((a,as) => if (f(a)) as else Cons(a, as))
+
+  def flatMap[A,B](as: List[A])(f: A => List[B]): List[B] =
+    foldRight(as, Nil: List[B])((a,bs) => append(f(a), bs))    
+
+  def flatten[A](ass: List[List[A]]): List[A] =
+    foldRight(ass, Nil: List[A])(append(_,_))
+
+  def flatMap2[A,B](as: List[A])(f: A => List[B]): List[B] =
+    flatten(map(as)(f))
+
+  def filter2[A](l: List[A])(f: A => Boolean): List[A] = 
+    flatMap(l)(x => if (f(x)) Nil else List(x))
+  
+  def merge(as: List[Int])(bs: List[Int]): List[Int] = (as, bs) match {
+    case (Nil, _) => Nil
+    case (_, Nil) => Nil
+    case (Cons(x,xs), Cons(y,ys)) => Cons(x+y, merge(xs)(ys))
+  }
+
+  def zipWith[A,B,C](f: (A, B) => C)(as: List[A])(bs: List[B]): List[C] = (as, bs) match {
+    case (Nil, _) => Nil
+    case (_, Nil) => Nil
+    case (Cons(x,xs), Cons(y,ys)) => Cons(f(x, y), zipWith(f)(xs)(ys))
+  }
 }

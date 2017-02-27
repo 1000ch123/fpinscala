@@ -83,4 +83,64 @@ class TestDataStructures extends FunSuite with Matchers{
     List.init(List(3)) shouldBe List()
     List.init(List()) shouldBe List()
   }
+
+  test("3.16: succ list"){
+    List.succ(List(1,2,3,4)) shouldBe List(2,3,4,5)
+    List.succ(List(3)) shouldBe List(4)
+    List.succ(List()) shouldBe List()
+  }
+
+  test("3.17: double to str"){
+    List.doubleToString(List(1,2,3,4)) shouldBe List("1.0", "2.0", "3.0", "4.0")
+    List.doubleToString(List(3)) shouldBe List("3.0")
+    List.doubleToString(List()) shouldBe List()
+  }
+
+  test("3.18: map"){
+    def succ: Int => Int = _ + 1
+    List.map(List(1,2,3,4))(succ) shouldBe List(2,3,4,5)
+    List.map(List(3))(succ) shouldBe List(4)
+    List.map(List())(succ) shouldBe List()
+  }
+
+  test("3.19: filter"){
+    def isEven: Int => Boolean = _ % 2 == 0
+    List.filter(List(1,2,3,4))(isEven) shouldBe List(1,3)
+    List.filter(List(3))(isEven) shouldBe List(3)
+    List.filter(List())(isEven) shouldBe List()
+  }
+
+  test("3.20: fmap"){
+    def twice: Int => List[Int] = x => List(x, x)
+    List.flatMap(List(1,2,3,4))(twice) shouldBe List(1,1,2,2,3,3,4,4)
+    List.flatMap(List(3))(twice) shouldBe List(3,3)
+    List.flatMap(List())(twice) shouldBe List()
+  }
+
+  test("3.20': fmap2"){
+    def twice: Int => List[Int] = x => List(x, x)
+    List.flatMap2(List(1,2,3,4))(twice) shouldBe List(1,1,2,2,3,3,4,4)
+    List.flatMap2(List(3))(twice) shouldBe List(3,3)
+    List.flatMap2(List())(twice) shouldBe List()
+  }
+
+  test("3.21: filter2"){
+    def isEven: Int => Boolean = _ % 2 == 0
+    List.filter2(List(1,2,3,4))(isEven) shouldBe List(1,3)
+    List.filter2(List(3))(isEven) shouldBe List(3)
+    List.filter2(List())(isEven) shouldBe List()
+  }
+
+  test("3.22: merge"){
+    List.merge(List(1,2,3,4))(List(10,20,30,40)) shouldBe List(11,22,33,44)
+    List.merge(List(1))(List(10,20,30,40)) shouldBe List(11)
+    List.merge(List())(List(10,20,30,40)) shouldBe List()
+  }
+
+  test("3.23: zipWith"){
+    def add: (Int, Int) => Int = _ + _
+    List.zipWith(add)(List(1,2,3,4))(List(10,20,30,40)) shouldBe List(11,22,33,44)
+    List.zipWith(add)(List(1))(List(10,20,30,40)) shouldBe List(11)
+    List.zipWith(add)(List())(List(10,20,30,40)) shouldBe List()
+  }
 }
