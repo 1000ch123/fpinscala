@@ -89,9 +89,15 @@ object List { // `List` companion object. Contains functions for creating and wo
     case Cons(x, xs) => Cons(x, init(xs))
   }
 
-  def length[A](l: List[A]): Int = ???
+  def length[A](l: List[A]): Int = foldRight(l, 0)((x, acc)=>acc + 1)
 
-  def foldLeft[A,B](l: List[A], z: B)(f: (B, A) => B): B = ???
+  def foldLeft[A,B](as: List[A], z: B)(f: (B, A) => B): B = // Utility functions
+    as match {
+      case Nil => z
+      case Cons(x, xs) => foldLeft(xs, f(z, x))(f)
+    }
+
+  def reverse[A](as: List[A]): List[A] = foldLeft(as, Nil: List[A])((xs, x) => Cons(x, xs))
 
   def succ(l: List[Int]): List[Int] =
     foldRight[Int, List[Int]](l, Nil)((x,y) => Cons(x + 1, y))

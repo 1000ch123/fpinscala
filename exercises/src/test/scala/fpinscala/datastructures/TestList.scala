@@ -84,6 +84,22 @@ class TestDataStructures extends FunSuite with Matchers{
     List.init(List()) shouldBe List()
   }
 
+
+  test("3.09: len"){
+    List.length(List(1,2,3,4)) shouldBe 4
+    List.length(List(3)) shouldBe 1
+    List.length(List()) shouldBe 0
+  }
+  
+  test("3.10: foldLeft"){
+    List.foldLeft(List(1,2,3,4), 0)(_ + _) shouldBe 10
+  }
+
+  test("3.11: reverse"){
+    List.reverse(List(1,2,3,4)) shouldBe List(4,3,2,1)
+    List.reverse(List()) shouldBe List()
+  }
+
   test("3.16: succ list"){
     List.succ(List(1,2,3,4)) shouldBe List(2,3,4,5)
     List.succ(List(3)) shouldBe List(4)

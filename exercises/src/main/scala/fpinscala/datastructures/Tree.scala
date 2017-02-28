@@ -8,7 +8,7 @@ case class Branch[A](left: Tree[A], right: Tree[A]) extends Tree[A]
 object Tree {
     def size[A](t: Tree[A]): Int = t match {
         case Leaf(_) => 1
-        case Branch(l ,r) => size(l) + size(r)
+        case Branch(l ,r) => size(l) + size(r) + 1
     }
 
     def maximum(t: Tree[Int]): Int = t match {
@@ -38,10 +38,18 @@ object Tree {
         case Leaf(a) => f(a, acc)
     }
 
-    def size_[A](t: Tree[A]): Int = fold(t)(0)((x,y) => y + 1)
+    // foldなのかなぁこれ
+    def fold_[A,B](t: Tree[A])(f: A => B)(g: (B,B) => B): B = t match {
+        case Branch(l ,r) => g(fold_(l)(f)(g), fold_(r)(f)(g))
+        case Leaf(a) => f(a)
+    }    
+
+    //def size_[A](t: Tree[A]): Int = fold(t)(0)((x,y) => y + 1)
+    def size_[A](t: Tree[A]): Int = fold_(t)(x => 1)(_ + _ + 1)
 
     // foldの仕様上 acc として与える値が必要なので注意
-    def maximum_(t: Tree[Int]): Int = fold(t)(Int.MinValue)(_ max _) 
+    //def maximum_(t: Tree[Int]): Int = fold(t)(Int.MinValue)(_ max _) 
+    def maximum_(t: Tree[Int]): Int = fold_(t)(x => x)(_ max _) 
 
     // 呼び出しを意識しないといけないfoldingって面倒だな..
     // branch経由のたびにfuncは呼ばれるからなんとかなるか？
