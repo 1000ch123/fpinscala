@@ -9,7 +9,7 @@ class TestTree extends FreeSpec with Matchers{
   "3.25" - {
     "size" in {
       Tree.size(Leaf(1)) shouldBe 1
-      Tree.size(Branch(Branch(Leaf(1), Leaf(2)), Leaf(3))) shouldBe 3    
+      Tree.size(Branch(Branch(Leaf(1), Leaf(2)), Leaf(3))) shouldBe 5   
     }
   }
 
@@ -44,10 +44,11 @@ class TestTree extends FreeSpec with Matchers{
         Tree.fold(Leaf(1))(0)(_ + _) shouldBe 1
         Tree.fold(Branch(Leaf(1), Leaf(2)))(0)(_ + _) shouldBe 3
         Tree.fold(Branch(Branch(Leaf(1), Leaf(2)), Leaf(3)))(0)(_ + _) shouldBe 6
+        Tree.fold_(Branch(Branch(Leaf(1), Leaf(2)), Leaf(3)))(x => x)(_ + _) shouldBe 6
       }
       "size" in {
         Tree.size_(Leaf(1)) shouldBe 1
-        Tree.size_(Branch(Branch(Leaf(1), Leaf(2)), Leaf(3))) shouldBe 3    
+        Tree.size_(Branch(Branch(Leaf(1), Leaf(2)), Leaf(3))) shouldBe 5
       }
       "maximum" in {
         Tree.maximum_(Leaf(1)) shouldBe 1
