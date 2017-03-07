@@ -57,5 +57,6 @@ object Tree {
     def depth_[A](t: Tree[A], target: A): Int =  ???
 
     // empty tree(ListでいうNil)作れない構造だと無理では..?
-    def map_[A,B](t: Tree[A])(f: A => B): Tree[B] = ??? //fold(t)()  
+    def map_[A,B](t: Tree[A])(f: A => B): Tree[B] =
+        fold_(t)(x => Leaf(f(x)): Tree[B])((x,y) => Branch(x, y)) 
 }
